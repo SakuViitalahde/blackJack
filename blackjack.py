@@ -13,7 +13,7 @@ def ask_bet():
         Kysytään halutaanko pelata
     '''
     while True:
-        answer = input(print("Do you wanna play more (y/n)?"))
+        answer = input("Do you wanna play more (y/n)?")
 
         if answer.lower() == "y":
             return True
@@ -29,18 +29,26 @@ def ask_amount():
     while True:
         try:
             print("Current balance is:" + str(player_bank.balance))
-            answer = int(input(print("How much you wanna bet?")))
+            answer = int(input("How much you wanna bet?"))
             return answer
         except:
             print("not valid value")
         else:            
             break
 
-def draw_more():
+def handle_player_hand(player_hand,dealer_hand):
     while True:
-        answer = input(print("Do you wanna hit or stand (hit/stand)?"))
+        print_hands_status(player_hand,dealer_hand)
+
+        if not draw_more(player_hand):
+            break
+
+def draw_more(hand):
+    while True:
+        answer = input("Do you wanna hit or stand (hit/stand)?")
 
         if answer.lower() == "hit":
+            current_deck.draw(hand)
             return True
             break
         if answer.lower() == "stand":
@@ -52,7 +60,7 @@ def print_hands_status(phand,dhand):
         printataan käsie tila
     '''
 
-    print("Pelaajan käsi:")
+    print("Pelaajan käsi:" + str(phand.value))
     for c in phand.current_cards:
         print(c)
     
@@ -60,6 +68,7 @@ def print_hands_status(phand,dhand):
     print(dhand.current_cards[0])
     print("Yksi tuntematon kortti")
 
+## Game loop
 while True:
     if ask_bet():
         player_bank.bet = ask_amount()
@@ -72,14 +81,9 @@ while True:
         current_deck.deal(player_hand)
         current_deck.deal(dealer_hand)
 
-        while True:
-            print_hands_status(player_hand,dealer_hand)
-
-            if not draw_more():
-                break
-        
-        
-
+        # pelaajan pelin oma looppi (hit/stand)
+        handle_player_hand(player_hand,dealer_hand)
+  
 
     else:
         print("Exit Game")

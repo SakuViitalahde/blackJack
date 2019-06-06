@@ -19,13 +19,19 @@ class Deck:
         for suit in suits:
             for rank in ranks:
                 self.used_deck.append(card.Card(rank,suit, values[rank]))
-        random.shuffle(self.deck)  
+        random.shuffle(self.used_deck)  
     
     def deal(self, hand):
-        hand.append(self.draw())
-        hand.append(self.draw())
+        ## tarkitaan 2 kortti alkuun
+        self.draw(hand)
+        self.draw(hand)
         
-    def draw(self):
-        return self.used_deck.pop()
+    def draw(self,hand):
+        new_card = self.used_deck.pop()
+
+        hand.current_cards.append(new_card)
+        hand.value += new_card.value
+        if new_card.rank == 'Ace':
+            hand.aces += 1
 
     

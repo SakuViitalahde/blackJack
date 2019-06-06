@@ -1,4 +1,7 @@
 class Bank:
+    '''
+        Pelaajan kanssan hallinta luokka
+    '''
     def __init__(self):
         self.balance = 50
         self.bet = 0

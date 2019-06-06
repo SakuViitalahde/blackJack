@@ -8,4 +8,4 @@ class Card:
         self.value = value
 
     def __str__(self):
-        return self.suit + " : " + self.rank
+        return self.suit + " : " + self.rank + " : " + str(self.value)
