@@ -8,4 +8,7 @@ class Card:
         self.value = value
 
     def __str__(self):
+        '''
+            Paluttaa kortit tiedot luettavassa muodossa
+        '''
         return self.suit + " : " + self.rank + " : " + str(self.value)

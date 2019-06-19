@@ -13,20 +13,32 @@ class Deck:
         self.shuffle()
     
     def __str__(self):
+        '''
+            Palauttaa korttien lukumäärän luettavassa muodossa
+        '''
         return "You have " + str(len(self.used_deck)) + "left"
 
     def shuffle(self):
+        '''
+            Sekoittaa pakan uudelleen
+        '''
         for suit in suits:
             for rank in ranks:
                 self.used_deck.append(card.Card(rank,suit, values[rank]))
         random.shuffle(self.used_deck)  
     
     def deal(self, hand):
+        '''
+            Jakaa aloitus käden 2 kortti annetulle kädelle
+        '''
         ## tarkitaan 2 kortti alkuun
         self.draw(hand)
         self.draw(hand)
         
     def draw(self,hand):
+        '''
+            nostaa kortin pakasta parametrina annetulle kädelle
+        '''
         new_card = self.used_deck.pop()
 
         hand.current_cards.append(new_card)
